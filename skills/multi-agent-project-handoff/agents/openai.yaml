@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi-Agent Project Handoff"
+  short_description: "Initialize reusable multi-agent project handoffs"
+  default_prompt: "Use $multi-agent-project-handoff to initialize this repository for multi-agent collaboration."
