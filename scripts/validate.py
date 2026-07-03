@@ -91,7 +91,15 @@ def run_handoff_smoke(project_root: Path) -> list[str]:
     with tempfile.TemporaryDirectory(prefix="codex-skill-test-") as tmp:
         tmp_path = Path(tmp)
         first = subprocess.run(
-            [sys.executable, str(script), str(tmp_path), "--project-name", "Smoke Test"],
+            [
+                sys.executable,
+                str(script),
+                str(tmp_path),
+                "--project-name",
+                "Smoke Test",
+                "--with-codex-preferences",
+                "--with-compat-entrypoints",
+            ],
             text=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -110,13 +118,27 @@ def run_handoff_smoke(project_root: Path) -> list[str]:
             "docs/ROADMAP.md",
             "docs/DECISIONS.md",
             "docs/CODE_STANDARDS.md",
+            "docs/ai-agent/README.md",
+            "docs/change-diffs/README.md",
+            ".codex/CODEX_PREFERENCES.md",
+            "CLAUDE.md",
+            "GEMINI.md",
+            ".cursorrules",
         ]
         for relative in expected:
             if not (tmp_path / relative).is_file():
                 errors.append(f"handoff smoke missing generated file: {relative}")
 
         second = subprocess.run(
-            [sys.executable, str(script), str(tmp_path), "--project-name", "Smoke Test"],
+            [
+                sys.executable,
+                str(script),
+                str(tmp_path),
+                "--project-name",
+                "Smoke Test",
+                "--with-codex-preferences",
+                "--with-compat-entrypoints",
+            ],
             text=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

@@ -4,7 +4,7 @@
 
 ## 当前 Skills
 
-- `multi-agent-project-handoff`：为新项目或现有仓库建立多端、多 AI Agent 协作交接文档和恢复流程。
+- `multi-agent-project-handoff`：为新项目或现有仓库建立多端、多 AI Agent 协作交接文档、短入口 `AGENTS.md`、详细流程目录、变更异同分析目录和恢复流程。
 
 ## 安装
 
@@ -51,6 +51,7 @@ $CODEX_HOME\skills
 - Skill 目录名是否与 `name` 一致
 - `agents/openai.yaml` 的默认提示是否包含 `$skill-name`
 - `multi-agent-project-handoff` 的初始化脚本是否能创建并跳过已有文档
+- 可选的 Codex 偏好和跨工具薄入口是否能生成
 
 ## 新端使用流程
 
@@ -71,5 +72,5 @@ Use $multi-agent-project-handoff to initialize this repository for multi-agent c
 
 - Skill 本体只保留 AI 执行任务所需的信息。
 - 项目级说明、安装说明、维护流程放在本仓库根目录。
-- 修改 Skill 后运行 `.\scripts\validate.ps1`。
+- 修改 Skill 后运行 `.\scripts\validate.cmd`。
 - 将新版本通过 Git 提交和同步到其他端。

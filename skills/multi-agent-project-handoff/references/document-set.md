@@ -4,7 +4,7 @@ Read this reference when creating or substantially refreshing the repository han
 
 ## Root AGENTS.md
 
-Purpose: tell any AI agent how to work in this repository.
+Purpose: tell any AI agent how to work in this repository. Keep this file short: mandatory rules, read order, document map, and critical checklists belong here; long workflows belong in linked docs.
 
 Recommended sections:
 
@@ -23,10 +23,23 @@ Recommended sections:
 - 不要删除文件或回滚用户/其他 Agent 的改动，除非用户明确要求。
 - 代码变更要同步更新状态、交接或决策文档。
 - 阶段结束前运行项目约定的验证命令。
+- 如果当前执行者是 Codex，且存在 `.codex/CODEX_PREFERENCES.md`，还应阅读该文件。
+
+## 文档分层
+- `AGENTS.md` 只放高优先级规则、阅读顺序、文档索引和检查清单。
+- `docs/ai-agent/` 存放长期稳定的详细流程和分析方法。
+- `docs/change-diffs/` 存放版本、需求或功能级异同分析。
+- 使用代表页面或模块做分析时，沉淀文档应写成通用流程；代表样例只作为入口或验证锚点。
 
 ## 恢复工作流程
 - 拉取最新代码后重新阅读状态、交接、路线图和决策文档。
 - 先总结当前状态和下一步，再继续开发。
+
+## Git 提交规范
+- 只有用户明确要求或项目协议要求阶段提交时才操作 git commit。
+- commit 必须按功能点、修复点或文档点拆分。
+- 一个 commit 只表达一个功能点；不要混入无关改动、格式化、重构和业务变更。
+- commit message 遵循 Conventional Commits：`<type>(<scope>): <subject>`。
 
 ## 阶段结束清单
 - 更新 `docs/STATUS.md`。
@@ -64,6 +77,8 @@ AI Agent 接手时先阅读 `AGENTS.md`，再阅读 `docs/HANDOFF.md` 和 `docs/
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
+- `docs/ai-agent/README.md`
+- `docs/change-diffs/README.md`
 ```
 
 ## docs/PROJECT.md
@@ -152,6 +167,8 @@ git pull --ff-only
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
+- `docs/ai-agent/README.md`
+- `docs/change-diffs/README.md`
 
 ## 下一步建议
 - <Next task.>
@@ -234,4 +251,94 @@ Recommended sections:
 
 ## 提交规范
 - <Commit style, language, branch policy.>
+```
+
+## docs/ai-agent/README.md
+
+Purpose: hold stable, detailed AI-agent workflows without making `AGENTS.md` too long.
+
+Recommended sections:
+
+```markdown
+# AI Agent 详细流程
+
+## 目录职责
+- 本目录存放长期稳定、可复用的详细流程。
+- 根目录 `AGENTS.md` 只保留高优先级入口和索引。
+
+## 推荐文档类型
+- 复杂业务流程导航。
+- 修改点定位表。
+- 共享模块调用关系。
+- 风险清单和验证清单。
+
+## 编写原则
+- 从代表样例提炼通用流程，不把通用文档命名成某个特例。
+- 分析结果落文档时，同步更新 README 索引、检查清单、风险和验证点。
+- 如果只是一次性需求或版本差异，放到 `docs/change-diffs/`。
+```
+
+## docs/change-diffs/README.md
+
+Purpose: record version, feature, or requirement-level differences when shared logic keeps evolving.
+
+Recommended sections:
+
+```markdown
+# 变更异同分析
+
+## 目录职责
+- 本目录存放版本、需求或功能级异同分析。
+- 长期稳定流程沉淀到 `docs/ai-agent/`。
+
+## 建议命名
+- `<version>-<feature>-diff.md`
+- `<branch>-<feature>-diff.md`
+- `<date>-<feature>-diff.md`
+
+## 单篇模板
+### 背景
+<Why this variant exists.>
+
+### 复用逻辑
+<What existing logic is reused.>
+
+### 差异点
+<What changed.>
+
+### 兼容影响
+<Whether old behavior, data, routes, APIs, or users are affected.>
+
+### 风险
+<Potential regressions.>
+
+### 验证清单
+<Concrete checks.>
+```
+
+## .codex/CODEX_PREFERENCES.md
+
+Purpose: hold Codex-only project preferences without polluting the shared `AGENTS.md` rules. Create this only when useful.
+
+Recommended content:
+
+```markdown
+# Codex 项目级偏好
+
+- 默认使用中文回复。
+- 修改代码前先简短说明计划。
+- 文档类改动默认不提交，除非用户明确要求或项目协议要求。
+- 遇到冲突时，优先级为：用户当前明确指令 > `AGENTS.md` > 本文件。
+```
+
+## Thin Cross-Tool Entrypoints
+
+Purpose: help other AI coding tools discover the same rules without copying them.
+
+Create only when the project needs multi-tool compatibility:
+
+```markdown
+# Claude / Gemini / Cursor Entry
+
+Please read `AGENTS.md` before analyzing or modifying this repository. Treat `AGENTS.md` as the source of truth for project rules, handoff workflow, and documentation expectations.
 ```

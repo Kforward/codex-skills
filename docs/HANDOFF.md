@@ -6,6 +6,7 @@
 - 当前目标：把个人 Skill 项目化，方便其他端安装和继续迭代。
 - 当前 Skill：`multi-agent-project-handoff`
 - 当前分支：`main`
+- 当前远程：`git@github.com:Kforward/codex-skills.git`
 
 ## 恢复工作流程
 
@@ -34,7 +35,8 @@ Get-ChildItem -Recurse
 
 ## 下一步建议
 
-- 提供远程仓库地址后添加 remote 并推送。
+- 根据真实项目使用反馈继续迭代 `multi-agent-project-handoff`。
+- 可单独创建复杂前端流程分析类 Skill，避免把业务代码分析方法塞进 handoff Skill。
 - 如要支持更多平台，可以补充 Bash 安装脚本。
 
 ## 已知问题
