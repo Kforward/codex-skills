@@ -21,7 +21,7 @@ entry
  -> state/auth checks
  -> API / user action
  -> completion / navigation
-````
+```
 
 ## 目标流程或变体流程
 ```text
@@ -80,7 +80,7 @@ user action
 
 ## 仍需确认
 - 
-```
+````
 
 ## Variant Difference Document
 

@@ -144,7 +144,7 @@ Purpose: make the next agent productive quickly.
 
 Recommended sections:
 
-```markdown
+````markdown
 # 交接说明
 
 ## 当前上下文
@@ -175,7 +175,7 @@ git pull --ff-only
 
 ## 已知问题
 - <Known issue or "暂无".>
-```
+````
 
 ## docs/ROADMAP.md
 
