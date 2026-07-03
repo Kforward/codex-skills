@@ -7,6 +7,7 @@
 ## 当前范围
 
 - 维护 `multi-agent-project-handoff` Skill。
+- 维护 `legacy-frontend-flow-analysis` Skill。
 - 提供本地安装脚本。
 - 提供无外部依赖的基础校验脚本。
 - 用项目文档记录 Skill 项目的状态、路线、决策和交接。
@@ -22,6 +23,7 @@
 - 新端拉取本仓库后安装 Skills。
 - 迭代已有 Skill 并同步给其他端。
 - 在新项目中使用 `multi-agent-project-handoff` 初始化多 Agent 协作文档。
+- 在复杂旧前端项目中使用 `legacy-frontend-flow-analysis` 追踪业务流程和风险。
 
 ## 关键约束
 

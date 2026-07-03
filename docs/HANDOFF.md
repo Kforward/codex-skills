@@ -4,7 +4,7 @@
 
 - 项目路径：`outputs/codex-skills`
 - 当前目标：把个人 Skill 项目化，方便其他端安装和继续迭代。
-- 当前 Skill：`multi-agent-project-handoff`
+- 当前 Skills：`multi-agent-project-handoff`、`legacy-frontend-flow-analysis`
 - 当前分支：`main`
 - 当前远程：`git@github.com:Kforward/codex-skills.git`
 
@@ -32,11 +32,12 @@ Get-ChildItem -Recurse
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
 - `skills/multi-agent-project-handoff/SKILL.md`
+- `skills/legacy-frontend-flow-analysis/SKILL.md`
 
 ## 下一步建议
 
 - 根据真实项目使用反馈继续迭代 `multi-agent-project-handoff`。
-- 可单独创建复杂前端流程分析类 Skill，避免把业务代码分析方法塞进 handoff Skill。
+- 根据复杂前端项目分析实践继续迭代 `legacy-frontend-flow-analysis`。
 - 如要支持更多平台，可以补充 Bash 安装脚本。
 
 ## 已知问题

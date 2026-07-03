@@ -5,6 +5,7 @@
 ## 当前 Skills
 
 - `multi-agent-project-handoff`：为新项目或现有仓库建立多端、多 AI Agent 协作交接文档、短入口 `AGENTS.md`、详细流程目录、变更异同分析目录和恢复流程。
+- `legacy-frontend-flow-analysis`：从路由、页面、组件或行为入口追踪复杂旧前端业务流程，输出调用图、隐式依赖、风险和验证清单。
 
 ## 安装
 
@@ -18,6 +19,7 @@
 
 ```powershell
 .\scripts\install.cmd multi-agent-project-handoff
+.\scripts\install.cmd legacy-frontend-flow-analysis
 ```
 
 默认安装位置：
@@ -36,6 +38,7 @@ $CODEX_HOME\skills
 
 ```powershell
 .\scripts\install.cmd multi-agent-project-handoff -Force
+.\scripts\install.cmd legacy-frontend-flow-analysis -Force
 ```
 
 ## 校验
@@ -66,6 +69,7 @@ cd codex-skills
 
 ```text
 Use $multi-agent-project-handoff to initialize this repository for multi-agent collaboration.
+Use $legacy-frontend-flow-analysis to trace this legacy frontend flow and produce a risk-aware implementation map.
 ```
 
 ## 维护规则

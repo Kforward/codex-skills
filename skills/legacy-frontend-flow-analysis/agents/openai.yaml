@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legacy Frontend Flow Analysis"
+  short_description: "Trace complex legacy frontend business flows"
+  default_prompt: "Use $legacy-frontend-flow-analysis to trace this legacy frontend flow and produce a risk-aware implementation map."

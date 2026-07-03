@@ -2,19 +2,20 @@
 
 ## Now
 
-- 增强 `multi-agent-project-handoff` 的文档分层、提交规范、可选 Codex 偏好和跨工具入口。
+- 新增并验证 `legacy-frontend-flow-analysis`。
 
 ## Next
 
 - 增加更多 Skill 的管理能力，例如列出、安装、更新、卸载。
 - 根据真实项目使用反馈优化 `multi-agent-project-handoff`。
-- 评估是否新增复杂前端流程分析类 Skill。
+- 根据真实旧前端项目分析反馈优化 `legacy-frontend-flow-analysis`。
 
 ## Later
 
 - 增加跨平台 Bash 安装脚本。
 - 增加版本号和发布标签策略。
 - 增加 Skill 变更测试夹具。
+- 为复杂前端分析增加可选静态扫描脚本。
 
 ## 暂不做
 
