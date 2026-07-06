@@ -11,8 +11,10 @@
 
 - 每个 Skill 文件夹必须包含 `SKILL.md`。
 - `SKILL.md` frontmatter 只包含 `name` 和 `description`。
+- `description` 是隐式触发的主要依据，应说明做什么和什么时候用，并包含 `Use when`。
 - Skill 名称必须与文件夹名一致。
 - `agents/openai.yaml` 如存在，默认提示应包含 `$skill-name`。
+- 新增或调整 Skill 时，同步维护 `docs/SKILL_CATALOG.md`；明显改变触发边界时同步维护 `docs/SKILL_ROUTING.md`。
 - Skill 本体不要加入 README、安装指南、变更日志等项目级文档。
 
 ## 脚本规范

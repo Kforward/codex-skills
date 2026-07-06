@@ -43,3 +43,10 @@
 - 背景：会话暴露出本地分析产物误入暂存、公共 helper 异常分支影响面、非核心依赖阻塞页面、第三方 SDK 替换边界等通用问题。
 - 取舍：只沉淀通用检查项和模板，不写入具体项目名、版本号、业务 key 或页面路径。
 - 影响：后续新项目交接和旧前端分析会更早检查本地产物、公共方法兜底、非阻塞边界和 SDK 适配层。
+
+### 2026-07-06 - 建立 Skill Catalog 和路由校验框架
+
+- 决策：新增 `docs/SKILL_CATALOG.md` 和 `docs/SKILL_ROUTING.md`，并在 `scripts/validate.py` 中校验 description 路由质量和 catalog 覆盖。
+- 背景：Skill 数量增长后，仅靠记忆或人工判断容易选错 Skill；而 Codex 隐式触发主要依赖 `name` 和 `description`。
+- 取舍：先做轻量 catalog 与基础校验，不引入总控 Skill、外部索引服务或复杂关键词相似度算法。
+- 影响：新增或调整 Skill 时必须维护 catalog；后续可按 Skill 数量增长再增加关键词重叠检查和分组策略。

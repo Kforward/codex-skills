@@ -3,7 +3,7 @@
 ## 最近更新
 
 - 日期：2026-07-06
-- 当前阶段：根据真实旧前端项目会话反馈优化现有 Skills
+- 当前阶段：搭建 Skill 精准发现和路由维护框架
 
 ## 已完成
 
@@ -15,6 +15,9 @@
 - 新增 `legacy-frontend-flow-analysis`，用于分析复杂旧前端业务流程、隐式依赖、变体差异、风险和验证清单。
 - 优化 `multi-agent-project-handoff`，补充本地分析产物、设计/原型缓存和临时截图不进入提交的协作规则。
 - 优化 `legacy-frontend-flow-analysis`，补充公共 helper 影响面、空数据/异常兜底、非阻塞边界和第三方 SDK 适配层检查。
+- 新增 `docs/SKILL_CATALOG.md`，集中记录每个 Skill 的适用场景、不适用场景、触发关键词和示例 prompt。
+- 新增 `docs/SKILL_ROUTING.md`，记录 Skill 增长后的触发优先级、description 写法和 catalog 维护规则。
+- 增强 `scripts/validate.py`，校验 description 路由质量和 catalog 覆盖情况。
 
 ## 进行中
 
@@ -22,7 +25,7 @@
 
 ## 下一步
 
-- 继续根据真实项目使用反馈迭代两个 Skill 的内容和校验规则。
+- 继续根据真实项目使用反馈迭代两个 Skill 的内容、catalog 和校验规则。
 - 后续可考虑为 `legacy-frontend-flow-analysis` 增加可选脚本，自动生成调用关系/依赖审计草稿。
 
 ## 风险和阻塞
@@ -31,7 +34,7 @@
 
 ## 最近验证
 
-- `.\scripts\validate.cmd`：通过（2026-07-06）。
+- `.\scripts\validate.cmd`：通过（2026-07-06，含 Skill Catalog 校验）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Force`、`.\scripts\install.cmd legacy-frontend-flow-analysis -Force`：通过（2026-07-06）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Target <temp>`：通过。
 - 复跑 `install.cmd`：通过，默认跳过已有 Skill。

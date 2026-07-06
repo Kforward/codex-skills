@@ -3,7 +3,7 @@
 ## 当前上下文
 
 - 项目路径：`outputs/codex-skills`
-- 当前目标：根据真实旧前端项目会话反馈优化既有 Skills，保持通用可复用。
+- 当前目标：维护可扩展的 Skill 项目，确保 Skill 增长后仍能准确发现和选择。
 - 当前 Skills：`multi-agent-project-handoff`、`legacy-frontend-flow-analysis`
 - 当前分支：`main`
 - 当前远程：`git@github.com:Kforward/codex-skills.git`
@@ -31,12 +31,15 @@ Get-ChildItem -Recurse
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
+- `docs/SKILL_CATALOG.md`
+- `docs/SKILL_ROUTING.md`
 - `skills/multi-agent-project-handoff/SKILL.md`
 - `skills/legacy-frontend-flow-analysis/SKILL.md`
 
 ## 下一步建议
 
 - 后续继续根据真实项目使用反馈迭代两个 Skill，避免为了文案润色而频繁改动。
+- 新增或调整 Skill 时先更新 `docs/SKILL_CATALOG.md`，并确认 `description` 仍能精准触发。
 - 如要新增旧前端静态扫描能力，可优先评估 `legacy-frontend-flow-analysis` 的可选脚本，而不是把脚本逻辑塞进 `SKILL.md`。
 - 如要支持更多平台，可以补充 Bash 安装脚本。
 

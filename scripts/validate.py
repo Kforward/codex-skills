@@ -11,6 +11,7 @@ from pathlib import Path
 
 
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(?P<body>.*?)\r?\n---\r?\n", re.DOTALL)
+CATALOG_HEADING_RE = re.compile(r"^##\s+`?(?P<name>[a-z0-9-]{1,64})`?\s*$", re.MULTILINE)
 
 
 def configure_stdout() -> None:
@@ -60,6 +61,13 @@ def validate_skill(skill_dir: Path) -> list[str]:
         errors.append(f"{skill_dir.name}: missing name")
     if not description:
         errors.append(f"{skill_dir.name}: missing description")
+    if description:
+        if len(description) < 80:
+            errors.append(f"{skill_dir.name}: description is too short for routing")
+        if len(description) > 1000:
+            errors.append(f"{skill_dir.name}: description is too long for routing")
+        if "Use when" not in description:
+            errors.append(f"{skill_dir.name}: description should include 'Use when'")
     if name and name != skill_dir.name:
         errors.append(f"{skill_dir.name}: name does not match folder ({name})")
     if name and not re.fullmatch(r"[a-z0-9-]{1,64}", name):
@@ -72,6 +80,65 @@ def validate_skill(skill_dir: Path) -> list[str]:
         text = openai_yaml.read_text(encoding="utf-8")
         if f"${name}" not in text:
             errors.append(f"{skill_dir.name}: agents/openai.yaml missing ${name}")
+
+    return errors
+
+
+def collect_skill_metadata(skill_dirs: list[Path]) -> dict[str, str]:
+    metadata: dict[str, str] = {}
+    for skill_dir in skill_dirs:
+        skill_md = skill_dir / "SKILL.md"
+        if not skill_md.is_file():
+            continue
+        try:
+            frontmatter = parse_simple_frontmatter(skill_md)
+        except ValueError:
+            continue
+        name = frontmatter.get("name", "").strip()
+        description = frontmatter.get("description", "").strip()
+        if name:
+            metadata[name] = description
+    return metadata
+
+
+def extract_catalog_sections(catalog_text: str) -> dict[str, str]:
+    matches = list(CATALOG_HEADING_RE.finditer(catalog_text))
+    sections: dict[str, str] = {}
+    for index, match in enumerate(matches):
+        start = match.end()
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(catalog_text)
+        sections[match.group("name")] = catalog_text[start:end]
+    return sections
+
+
+def validate_skill_catalog(project_root: Path, skills: dict[str, str]) -> list[str]:
+    errors: list[str] = []
+    catalog = project_root / "docs" / "SKILL_CATALOG.md"
+    routing = project_root / "docs" / "SKILL_ROUTING.md"
+
+    if not catalog.is_file():
+        return ["docs/SKILL_CATALOG.md: missing skill catalog"]
+    if not routing.is_file():
+        errors.append("docs/SKILL_ROUTING.md: missing skill routing rules")
+
+    catalog_text = catalog.read_text(encoding="utf-8")
+    sections = extract_catalog_sections(catalog_text)
+    required_labels = ["适用场景", "不适用场景", "触发关键词", "示例 prompt"]
+
+    for name in sorted(skills):
+        section = sections.get(name)
+        if not section:
+            errors.append(f"docs/SKILL_CATALOG.md: missing section for {name}")
+            continue
+        for label in required_labels:
+            if label not in section:
+                errors.append(f"docs/SKILL_CATALOG.md: {name} missing {label}")
+        if f"${name}" not in section:
+            errors.append(f"docs/SKILL_CATALOG.md: {name} example prompt missing ${name}")
+
+    extra_sections = sorted(set(sections) - set(skills))
+    for name in extra_sections:
+        errors.append(f"docs/SKILL_CATALOG.md: unknown skill section {name}")
 
     return errors
 
@@ -170,6 +237,8 @@ def main() -> int:
     for skill_dir in skill_dirs:
         errors.extend(validate_skill(skill_dir))
 
+    skill_metadata = collect_skill_metadata(skill_dirs)
+    errors.extend(validate_skill_catalog(project_root, skill_metadata))
     errors.extend(run_handoff_smoke(project_root))
 
     if errors:

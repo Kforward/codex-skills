@@ -4,6 +4,7 @@
 - 先读 `README.md`。
 - 再读本文件。
 - 再读 `docs/PROJECT.md`、`docs/STATUS.md`、`docs/HANDOFF.md`、`docs/ROADMAP.md`、`docs/DECISIONS.md`、`docs/CODE_STANDARDS.md`。
+- 涉及新增、调整或选择 Skill 时，读取 `docs/SKILL_CATALOG.md` 和 `docs/SKILL_ROUTING.md`。
 - 查看 `git status` 和最近提交。
 - 修改 Skill 前先简短说明计划。
 

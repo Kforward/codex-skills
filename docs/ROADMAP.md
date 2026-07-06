@@ -2,13 +2,14 @@
 
 ## Now
 
-- 新增并验证 `legacy-frontend-flow-analysis`。
+- 维护 Skill Catalog、路由规则和基础校验，保证 Skill 增长后仍可准确选择。
 
 ## Next
 
 - 增加更多 Skill 的管理能力，例如列出、安装、更新、卸载。
 - 根据真实项目使用反馈优化 `multi-agent-project-handoff`。
 - 根据真实旧前端项目分析反馈优化 `legacy-frontend-flow-analysis`。
+- 当 Skill 数量增加到 8 个左右时，评估关键词重叠检查和 catalog 分组。
 
 ## Later
 
@@ -16,6 +17,7 @@
 - 增加版本号和发布标签策略。
 - 增加 Skill 变更测试夹具。
 - 为复杂前端分析增加可选静态扫描脚本。
+- 如 Skill 数量超过 20 个，评估插件化分发或按领域拆分仓库。
 
 ## 暂不做
 

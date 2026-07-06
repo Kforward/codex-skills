@@ -7,6 +7,8 @@
 - `multi-agent-project-handoff`：为新项目或现有仓库建立多端、多 AI Agent 协作交接文档、短入口 `AGENTS.md`、详细流程目录、变更异同分析目录和恢复流程。
 - `legacy-frontend-flow-analysis`：从路由、页面、组件或行为入口追踪复杂旧前端业务流程，输出调用图、隐式依赖、风险和验证清单。
 
+完整索引见 `docs/SKILL_CATALOG.md`，Skill 选择和增长规则见 `docs/SKILL_ROUTING.md`。
+
 ## 安装
 
 安装全部 Skills：
@@ -52,7 +54,9 @@ $CODEX_HOME\skills
 - 每个 Skill 是否存在 `SKILL.md`
 - frontmatter 是否包含 `name` 和 `description`
 - Skill 目录名是否与 `name` 一致
+- `description` 是否像触发器一样包含明确使用时机
 - `agents/openai.yaml` 的默认提示是否包含 `$skill-name`
+- `docs/SKILL_CATALOG.md` 是否覆盖所有 Skill，并提供示例 prompt
 - `multi-agent-project-handoff` 的初始化脚本是否能创建并跳过已有文档
 - 可选的 Codex 偏好和跨工具薄入口是否能生成
 
