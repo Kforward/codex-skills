@@ -1,6 +1,6 @@
 ---
 name: legacy-frontend-flow-analysis
-description: "Analyze complex legacy frontend business flows by tracing from a route, page, component, feature flag, or user journey through router entries, components, mixins/composables, stores, APIs, storage, analytics, navigation, variants, and hidden dependencies. Use when asked to understand a large Vue/React/mobile H5 legacy project, identify the representative implementation of a behavior, compare a variant with the normal flow, document modification points, or produce risk and validation checklists before changing code."
+description: "Analyze complex legacy frontend business flows by tracing from a route, page, component, feature flag, shared helper, SDK integration, or user journey through router entries, components, mixins/composables, stores, APIs, storage, analytics, navigation, variants, and hidden dependencies. Use when asked to understand a large Vue/React/mobile H5 legacy project, identify the representative implementation of a behavior, compare a variant with the normal flow, audit shared-helper or third-party SDK changes, document modification points, or produce risk and validation checklists before changing code."
 ---
 
 # Legacy Frontend Flow Analysis
@@ -42,10 +42,17 @@ Use evidence chains instead of name guesses.
    - APIs, analytics, event reporting, timers, popups
    - navigation, deep links, app/mini-program/native bridge jumps
    - payment, post-submit, return/restore flows
+   - helper functions that both query data and trigger navigation, analytics, or storage writes
 5. Trace variants:
    - normal flow versus special flow
    - representative implementation versus neighboring copies
    - feature-specific differences versus shared base logic
+6. Trace failure and fallback behavior:
+   - success, empty-data, timeout, rejected Promise, callback error, and missing remote-config branches
+   - whether each dependency is allowed to block the page, degrade silently, show a retry, or continue with a fallback
+7. Trace integration boundaries:
+   - third-party SDK wrappers, adapter components, and public events/props
+   - whether a change can preserve the caller contract instead of leaking vendor-specific logic upward
 
 For Vue 2 mixin-heavy code, do not stop at the `mixins: []` list. Build a cross-call map: who calls whom through `this.*`, which fields are assumed to exist, which lifecycle hooks register global callbacks, and which methods are intentionally overridden.
 
@@ -86,8 +93,13 @@ Look specifically for:
 - route-entry differences that change initialization
 - cache restore and payment-return behavior
 - click handlers that execute during render/config construction
+- shared helpers whose empty or error branch never resolves or rejects
+- shared helpers that trigger navigation during a query or initialization phase
+- callback and Promise branches that behave differently for the same helper
+- fallback keys, analytics codes, or attribution parameters lost in error paths
 - analytics parameters split across click handlers and shared jump helpers
 - old logic modified for new business without compatibility checks
+- third-party SDK replacements that change caller-facing events, props, or data shape
 
 ## Documentation Rules
 
@@ -97,4 +109,5 @@ When turning analysis into docs:
 - Put stable workflows in `docs/ai-agent/` or the repository's equivalent.
 - Put version, requirement, or feature differences in `docs/change-diffs/` or the repository's equivalent.
 - Update indexes, locator tables, risk lists, and validation checklists together.
+- When a product/design artifact spans multiple systems, record which parts belong to the current repository and which are external dependencies or open questions.
 - Do not modify code unless the user asks for implementation.

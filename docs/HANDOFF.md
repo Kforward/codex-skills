@@ -3,7 +3,7 @@
 ## 当前上下文
 
 - 项目路径：`outputs/codex-skills`
-- 当前目标：把个人 Skill 项目化，方便其他端安装和继续迭代。
+- 当前目标：根据真实旧前端项目会话反馈优化既有 Skills，保持通用可复用。
 - 当前 Skills：`multi-agent-project-handoff`、`legacy-frontend-flow-analysis`
 - 当前分支：`main`
 - 当前远程：`git@github.com:Kforward/codex-skills.git`
@@ -36,8 +36,8 @@ Get-ChildItem -Recurse
 
 ## 下一步建议
 
-- 根据真实项目使用反馈继续迭代 `multi-agent-project-handoff`。
-- 根据复杂前端项目分析实践继续迭代 `legacy-frontend-flow-analysis`。
+- 后续继续根据真实项目使用反馈迭代两个 Skill，避免为了文案润色而频繁改动。
+- 如要新增旧前端静态扫描能力，可优先评估 `legacy-frontend-flow-analysis` 的可选脚本，而不是把脚本逻辑塞进 `SKILL.md`。
 - 如要支持更多平台，可以补充 Bash 安装脚本。
 
 ## 已知问题

@@ -68,6 +68,7 @@ Optional additions:
    - Update `DECISIONS.md` for architecture/product decisions.
    - Update `ROADMAP.md` when priorities or milestones change.
    - Update feature/version difference docs when a new variant reuses shared logic but changes business behavior.
+   - Keep temporary analysis exports, design-tool caches, prototype downloads, and local screenshots out of commits; add ignore rules when these artifacts recur.
 6. Validate:
    - Run the repository's normal checks when available.
    - For docs-only changes, still run lightweight checks if the project protocol asks for them.
@@ -106,6 +107,7 @@ When committing:
 - Split commits by feature point, fix point, or documentation point.
 - Keep unrelated formatting, refactors, docs, and business logic out of the same commit.
 - Do not stage unrelated user or agent changes.
+- Do not commit local research artifacts or generated prototype/design exports unless the repository intentionally tracks them.
 - Use Conventional Commits: `<type>(<scope>): <subject>`.
 
 ## Cross-Client Startup Prompt

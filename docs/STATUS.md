@@ -2,8 +2,8 @@
 
 ## 最近更新
 
-- 日期：2026-07-03
-- 当前阶段：新增复杂旧前端流程分析 Skill
+- 日期：2026-07-06
+- 当前阶段：根据真实旧前端项目会话反馈优化现有 Skills
 
 ## 已完成
 
@@ -13,6 +13,8 @@
 - 完成本地 Git 初始化和初始提交。
 - 增强 `multi-agent-project-handoff`，补充短入口 `AGENTS.md`、文档分层、变更异同分析、Codex 专属偏好、跨工具薄入口、功能点提交规范和重构安全规则。
 - 新增 `legacy-frontend-flow-analysis`，用于分析复杂旧前端业务流程、隐式依赖、变体差异、风险和验证清单。
+- 优化 `multi-agent-project-handoff`，补充本地分析产物、设计/原型缓存和临时截图不进入提交的协作规则。
+- 优化 `legacy-frontend-flow-analysis`，补充公共 helper 影响面、空数据/异常兜底、非阻塞边界和第三方 SDK 适配层检查。
 
 ## 进行中
 
@@ -29,7 +31,8 @@
 
 ## 最近验证
 
-- `.\scripts\validate.cmd`：通过。
+- `.\scripts\validate.cmd`：通过（2026-07-06）。
+- `.\scripts\install.cmd multi-agent-project-handoff -Force`、`.\scripts\install.cmd legacy-frontend-flow-analysis -Force`：通过（2026-07-06）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Target <temp>`：通过。
 - 复跑 `install.cmd`：通过，默认跳过已有 Skill。
 - `python scripts/install.py multi-agent-project-handoff --target <temp>`：通过。

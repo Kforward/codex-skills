@@ -63,12 +63,27 @@ user action
 | analytics |  |  |  |
 | navigation/deep link |  |  |  |
 
+## 公共方法影响面
+| 调用方类型 | 调用入口 | 成功分支 | 空数据/异常分支 | 是否允许阻塞 | 兜底归属 |
+|---|---|---|---|---|---|
+| 展示型 |  |  |  |  |  |
+| 点击型 |  |  |  |  |  |
+| 提交/支付型 |  |  |  |  |  |
+
+## 降级和阻断边界
+- 非核心依赖：
+- 允许阻断的强依赖：
+- 失败时用户可见行为：
+- 重试或继续路径：
+
 ## 常见改动定位表
 | 要改什么 | 优先看哪里 | 相关风险 |
 |---|---|---|
 | 文案/配置 |  |  |
 | 登录条件 |  |  |
 | 提交/保存 |  |  |
+| 公共 helper |  |  |
+| 第三方 SDK |  |  |
 | 支付/跳转 |  |  |
 | 埋点 |  |  |
 
@@ -106,6 +121,7 @@ user action
 - 对共享模块：
 - 对数据/缓存：
 - 对埋点/归因：
+- 对空数据/异常兜底：
 
 ## 风险
 - 
@@ -121,6 +137,7 @@ Use this when the user asks to find the page/module that implements a behavior.
 - Search for route comments, route names, and page marks.
 - Search for unique query keys, props, constants, API names, and feature flags.
 - Search for behavior toggles such as `requiredLogin: false`, `noRequiredLogin`, special redirect targets, or unique status transitions.
+- Search for remote-config keys, dictionary values, prototype/design notes, and external-entry query parameters.
 - Compare neighboring variants instead of stopping at the first match.
 - Verify uniqueness by searching the signature across the repo.
 - Confirm the full closure: entry -> state/auth -> business action -> completion/jump.
@@ -138,3 +155,22 @@ Use this when the user asks to find the page/module that implements a behavior.
 - Check lifecycle hooks that register timers, event listeners, store callbacks, or global callbacks.
 - Check cleanup on route leave/destroy/unmount.
 - Check module-scope variables and whether route changes reset them.
+
+## Shared Helper Impact Checklist
+
+Use this before changing a helper used by multiple pages or components.
+
+- Classify callers by behavior: display-only, user-click, submit/payment, background initialization, route guard.
+- For each caller, compare success, empty data, API failure, timeout, and thrown-error branches.
+- Confirm every Promise or callback path settles or invokes the caller's continuation intentionally.
+- Keep query/read helpers free of navigation side effects unless the helper name and contract clearly say it jumps.
+- Preserve caller-owned analytics, attribution, fallback keys, and target route/deep-link parameters in error paths.
+- If the old helper mixes callback and Promise styles, verify both styles after the change.
+
+## Third-Party SDK Replacement Checklist
+
+- Identify the adapter layer closest to the old SDK.
+- Preserve caller-facing props, events, return fields, and error semantics when possible.
+- Move vendor-specific loading, key selection, parsing, and retry behavior into a helper or adapter.
+- Search and remove unused old SDK imports, scripts, package dependencies, and stale comments.
+- Document the new adapter location, key/config ownership, and known fallback behavior.

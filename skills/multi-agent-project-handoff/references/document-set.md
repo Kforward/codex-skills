@@ -22,6 +22,7 @@ Recommended sections:
 - 优先遵循仓库已有架构、命名和测试方式。
 - 不要删除文件或回滚用户/其他 Agent 的改动，除非用户明确要求。
 - 代码变更要同步更新状态、交接或决策文档。
+- 本地分析产物、设计稿导出、原型缓存、临时截图和调试输出不提交；反复出现时加入忽略规则。
 - 阶段结束前运行项目约定的验证命令。
 - 如果当前执行者是 Codex，且存在 `.codex/CODEX_PREFERENCES.md`，还应阅读该文件。
 
@@ -39,6 +40,7 @@ Recommended sections:
 - 只有用户明确要求或项目协议要求阶段提交时才操作 git commit。
 - commit 必须按功能点、修复点或文档点拆分。
 - 一个 commit 只表达一个功能点；不要混入无关改动、格式化、重构和业务变更。
+- 暂存前确认没有带入本地分析目录、设计工具缓存、临时截图或调试文件；需要共享忽略规则时单独提交。
 - commit message 遵循 Conventional Commits：`<type>(<scope>): <subject>`。
 
 ## 阶段结束清单
@@ -248,6 +250,7 @@ Recommended sections:
 
 ## 安全要求
 - 不提交密钥、Cookie、Token 或私有数据。
+- 本地配置、运行产物、原型/设计工具缓存和临时分析输出应加入忽略规则。
 
 ## 提交规范
 - <Commit style, language, branch policy.>
