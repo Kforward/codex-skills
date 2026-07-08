@@ -2,8 +2,8 @@
 
 ## 最近更新
 
-- 日期：2026-07-06
-- 当前阶段：优化 AGENTS 薄入口和按需读取路由
+- 日期：2026-07-08
+- 当前阶段：L0/L1/L2 分级文档路由框架已落地
 
 ## 已完成
 
@@ -22,6 +22,10 @@
 - 新增 `docs/AGENT_INDEX.md`，按任务路由项目文档，避免默认读取全部 `docs/`。
 - 更新 `multi-agent-project-handoff` 生成模板，新项目默认使用薄 `AGENTS.md` + `docs/AGENT_INDEX.md`。
 - 增强 `scripts/validate.py`，校验根 `AGENTS.md` 长度、`docs/AGENT_INDEX.md` 存在和上下文瘦身规则。
+- 将 `docs/AGENT_INDEX.md` 调整为 L1 任务类型路由，只负责指向下一层 route file。
+- 新增 `docs/routes/PROJECT_ROUTING.md`、`DEVELOPMENT_ROUTING.md`、`SKILL_ROUTING.md`、`AI_AGENT_ROUTING.md`、`CHANGE_ROUTING.md`。
+- 更新 `multi-agent-project-handoff` Skill、reference 模板和初始化脚本，新项目默认生成 L0/L1/L2 文档路由。
+- 增强 `scripts/validate.py`，校验 route files 存在、被 L1 索引引用，并纳入初始化 smoke test。
 
 ## 进行中
 
@@ -29,7 +33,8 @@
 
 ## 下一步
 
-- 继续根据真实项目使用反馈迭代两个 Skill 的内容、catalog、AGENT_INDEX 和校验规则。
+- 继续根据真实项目使用反馈迭代两个 Skill 的内容、catalog、分级文档路由和校验规则。
+- 观察真实项目里的 `docs/routes/*.md` 是否需要按领域继续拆分；没有真实膨胀前不新增更深层目录。
 - 后续可考虑为 `legacy-frontend-flow-analysis` 增加可选脚本，自动生成调用关系/依赖审计草稿。
 
 ## 风险和阻塞
@@ -38,8 +43,10 @@
 
 ## 最近验证
 
-- `.\scripts\validate.cmd`：通过（2026-07-08，含 Skill Catalog 和 AGENTS 瘦身校验）。
-- `.\scripts\install.cmd multi-agent-project-handoff -Force`：通过（2026-07-08）。
+- `.\scripts\validate.cmd`：通过（2026-07-08，含 Skill Catalog、AGENTS 瘦身和 L0/L1/L2 route files 校验）。
+- `.\scripts\install.cmd multi-agent-project-handoff -Force`：通过（2026-07-08，已安装到本机 Codex skills 目录）。
+- `python -m py_compile skills\multi-agent-project-handoff\scripts\init_handoff_docs.py scripts\validate.py`：通过（2026-07-08）。
+- `git diff --check`：通过（2026-07-08）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Force`、`.\scripts\install.cmd legacy-frontend-flow-analysis -Force`：通过（2026-07-06）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Target <temp>`：通过。
 - 复跑 `install.cmd`：通过，默认跳过已有 Skill。

@@ -1,39 +1,19 @@
-# Agent Document Index
+# Agent Route Index
 
-Use this file to choose only the project documents needed for the current task. The root `AGENTS.md` is intentionally short and should not duplicate these details.
+Use this first-level route only to choose the next route file. Do not treat it as a full document map.
 
-## Read First
+## Route By Task Type
 
-- Resume or new session: `docs/STATUS.md`, then `docs/HANDOFF.md`.
-- Before changing code or Skills: check `git status`, then read the task-specific rows below.
-- If a nested directory contains its own `AGENTS.md`, read it only when working in that subtree; nested files should contain incremental local rules, not copied root rules.
-
-## Task Routing
-
-| Task | Read |
+| Task Type | Next Route |
 |---|---|
-| Understand current project state | `docs/STATUS.md`, `docs/HANDOFF.md` |
-| Change or create a Skill | `docs/SKILL_CATALOG.md`, `docs/SKILL_ROUTING.md`, target `skills/<name>/SKILL.md` |
-| Change install or validation scripts | `docs/CODE_STANDARDS.md`, `README.md`, related files under `scripts/` |
-| Change project scope or maintenance process | `docs/PROJECT.md`, `docs/DECISIONS.md`, `docs/ROADMAP.md` |
-| Update handoff, status, or roadmap only | Relevant target doc plus `docs/CODE_STANDARDS.md` if validation rules change |
-| Analyze a complex legacy frontend flow in another repo | Use `$legacy-frontend-flow-analysis`; write durable findings to that repo, not here |
-| Initialize another repo for multi-agent collaboration | Use `$multi-agent-project-handoff`; customize docs from that repo's facts |
-
-## Document Roles
-
-- `docs/PROJECT.md`: project purpose, scope, non-goals, and constraints.
-- `docs/STATUS.md`: latest completed work, current state, next steps, risks, and recent validation.
-- `docs/HANDOFF.md`: resume workflow, required context, and next-agent guidance.
-- `docs/ROADMAP.md`: now/next/later priorities.
-- `docs/DECISIONS.md`: durable decisions and rationale.
-- `docs/CODE_STANDARDS.md`: repository maintenance, script, Skill, security, and commit rules.
-- `docs/SKILL_CATALOG.md`: Skill selection catalog for humans and agents.
-- `docs/SKILL_ROUTING.md`: rules for Skill names, descriptions, catalog coverage, and growth strategy.
+| 接手项目、恢复上下文、查看当前进度 | `docs/routes/PROJECT_ROUTING.md` |
+| 修改代码、脚本、校验、架构或安全规范 | `docs/routes/DEVELOPMENT_ROUTING.md` |
+| 新增、维护、选择或安装 Skill | `docs/routes/SKILL_ROUTING.md` |
+| AI Agent 协作流程、交接、review、文档瘦身 | `docs/routes/AI_AGENT_ROUTING.md` |
+| 版本差异、需求变更、功能对比 | `docs/routes/CHANGE_ROUTING.md` |
 
 ## Keep Context Small
 
+- Read exactly one route file first, then only the concrete docs it names.
 - Prefer targeted reads over "read all docs".
-- Move long stable workflows to `docs/ai-agent/` or a Skill.
-- Move version or requirement differences to `docs/change-diffs/`.
-- Keep nested `AGENTS.md` files rare and short; use them only for subtree-specific commands, tests, or constraints.
+- If a nested directory contains its own `AGENTS.md`, read it only when working in that subtree; nested files should contain incremental local rules, not copied root rules.

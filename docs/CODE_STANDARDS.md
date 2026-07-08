@@ -6,7 +6,10 @@
 - `scripts/` 放项目维护脚本。
 - `docs/` 放项目状态、路线、决策和交接。
 - 根目录 `README.md` 面向人和其他端安装使用。
-- 根目录 `AGENTS.md` 只放硬规则和读取路由；任务级长说明放入 `docs/AGENT_INDEX.md` 指向的文档或 Skill。
+- 根目录 `AGENTS.md` 只放硬规则和 L0 入口。
+- `docs/AGENT_INDEX.md` 只做 L1 任务类型路由，不承载完整文档地图。
+- `docs/routes/*.md` 做 L2 任务子类型路由，指向具体单一职责文档、Skill 或源码区域。
+- 任务级长说明放入路由指向的文档或 Skill，不塞回根 `AGENTS.md`。
 - 嵌套 `AGENTS.md` 只用于子目录真实增量规则，不复制根目录内容。
 
 ## Skill 规范

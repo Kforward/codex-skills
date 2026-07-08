@@ -2,14 +2,14 @@
 
 ## Now
 
-- 维护薄 `AGENTS.md`、`docs/AGENT_INDEX.md`、Skill Catalog、路由规则和基础校验，降低上下文负担。
+- 维护薄 `AGENTS.md`、`docs/AGENT_INDEX.md`、`docs/routes/*.md`、Skill Catalog、路由规则和基础校验，降低上下文负担。
 
 ## Next
 
 - 增加更多 Skill 的管理能力，例如列出、安装、更新、卸载。
 - 根据真实项目使用反馈优化 `multi-agent-project-handoff`。
 - 根据真实旧前端项目分析反馈优化 `legacy-frontend-flow-analysis`。
-- 当项目文档继续增加时，评估 `docs/AGENT_INDEX.md` 分组和 AGENTS 长度阈值是否合理。
+- 当项目文档继续增加时，优先扩展或拆分 `docs/routes/*.md` 指向的单一职责文档；只有新增任务大类时才调整 `docs/AGENT_INDEX.md`。
 - 当 Skill 数量增加到 8 个左右时，评估关键词重叠检查和 catalog 分组。
 
 ## Later

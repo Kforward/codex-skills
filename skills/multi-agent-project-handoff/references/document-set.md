@@ -20,7 +20,8 @@ Recommended sections:
 
 ## Read Routing
 - Resume or new session: read `docs/STATUS.md` and `docs/HANDOFF.md`.
-- Need task-specific docs, standards, roadmap, or decisions: use `docs/AGENT_INDEX.md`.
+- Need task-specific docs, standards, roadmap, or decisions: start with `docs/AGENT_INDEX.md` and choose one route file under `docs/routes/`.
+- Read the selected route file, then only the concrete docs it names.
 - Working under a subtree with its own `AGENTS.md`: read that nested file for local incremental rules.
 - If the current executor is Codex and `.codex/CODEX_PREFERENCES.md` exists, read it when Codex-specific preferences matter.
 - Do not read every file in `docs/` by default.
@@ -52,13 +53,14 @@ Recommended sections:
 <Project-specific commands.>
 
 ## 协作入口
-AI Agent 接手时先阅读 `AGENTS.md`，再阅读 `docs/HANDOFF.md` 和 `docs/STATUS.md`。
+AI Agent 接手时先阅读 `AGENTS.md`，再阅读 `docs/HANDOFF.md`、`docs/STATUS.md` 和 `docs/AGENT_INDEX.md`。
 
 ## 文档地图
 - `docs/PROJECT.md`
 - `docs/STATUS.md`
 - `docs/HANDOFF.md`
 - `docs/AGENT_INDEX.md`
+- `docs/routes/*.md`
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
@@ -150,7 +152,7 @@ git pull --ff-only
 - `docs/STATUS.md`
 - `docs/HANDOFF.md`
 - `docs/AGENT_INDEX.md`
-- 按 `docs/AGENT_INDEX.md` 选择任务相关文档，不要默认全读。
+- 按 `docs/AGENT_INDEX.md` 选择一个 `docs/routes/` 路由文件，再读取任务相关文档；不要默认全读。
 
 ## 下一步建议
 - <Next task.>
@@ -161,31 +163,138 @@ git pull --ff-only
 
 ## docs/AGENT_INDEX.md
 
-Purpose: route agents to only the documents needed for the current task.
+Purpose: act as the L1 route index. It should only choose the next route file, not become a full document map.
 
 Recommended sections:
 
 ```markdown
-# Agent Document Index
+# Agent Route Index
 
-## Read First
-- Resume or new session: `docs/STATUS.md`, then `docs/HANDOFF.md`.
-- Before changing code: check `git status`, then read the relevant rows below.
-- Nested `AGENTS.md` files should be rare, subtree-specific, and incremental.
+Use this first-level route only to choose the next route file. Do not treat it as a full document map.
 
-## Task Routing
-| Task | Read |
+## Route By Task Type
+
+| Task Type | Next Route |
 |---|---|
-| Understand current state | `docs/STATUS.md`, `docs/HANDOFF.md` |
-| Change code | `docs/CODE_STANDARDS.md` plus task-specific docs |
-| Change project scope | `docs/PROJECT.md`, `docs/DECISIONS.md`, `docs/ROADMAP.md` |
-| Analyze complex flow | relevant `docs/ai-agent/` doc or a matching Skill |
-| Compare version or requirement | relevant `docs/change-diffs/` doc |
+| Resume project, inspect status, roadmap, or decisions | `docs/routes/PROJECT_ROUTING.md` |
+| Change code, scripts, validation, architecture, or security rules | `docs/routes/DEVELOPMENT_ROUTING.md` |
+| Create, update, choose, install, or validate Skills | `docs/routes/SKILL_ROUTING.md` |
+| Adjust AI-agent collaboration, handoff, review, or documentation routing | `docs/routes/AI_AGENT_ROUTING.md` |
+| Compare versions, requirements, or feature differences | `docs/routes/CHANGE_ROUTING.md` |
 
 ## Keep Context Small
+
+- Read exactly one route file first, then only the concrete docs it names.
 - Prefer targeted reads over "read all docs".
-- Move long stable workflows to `docs/ai-agent/` or a Skill.
-- Move version or requirement differences to `docs/change-diffs/`.
+- If a nested directory contains its own `AGENTS.md`, read it only when working in that subtree; nested files should contain incremental local rules, not copied root rules.
+```
+
+## docs/routes/PROJECT_ROUTING.md
+
+Purpose: route project understanding, resume, status, roadmap, and decisions.
+
+Recommended sections:
+
+```markdown
+# Project Routing
+
+Use this route for project understanding, resume, status, roadmap, and decisions.
+
+| Task | Read |
+|---|---|
+| Resume work or start a new session | `docs/STATUS.md`, `docs/HANDOFF.md` |
+| Understand project purpose and boundaries | `docs/PROJECT.md` |
+| Check current priorities | `docs/ROADMAP.md` |
+| Understand why a choice was made | `docs/DECISIONS.md` |
+| Update project state after work | `docs/STATUS.md`, `docs/HANDOFF.md` |
+
+Return to `docs/AGENT_INDEX.md` only if the task type changes.
+```
+
+## docs/routes/DEVELOPMENT_ROUTING.md
+
+Purpose: route implementation, scripts, validation, architecture, and security conventions.
+
+Recommended sections:
+
+```markdown
+# Development Routing
+
+Use this route for code, scripts, validation, architecture, security, and implementation conventions.
+
+| Task | Read |
+|---|---|
+| Change code | `docs/CODE_STANDARDS.md`, task-specific source files, and nearby docs |
+| Change validation, build, install, or maintenance scripts | `README.md`, `docs/CODE_STANDARDS.md`, related files under `scripts/` |
+| Change architecture or security-sensitive behavior | `docs/PROJECT.md`, `docs/DECISIONS.md`, `docs/CODE_STANDARDS.md` |
+| Prepare commit or release notes | `docs/CODE_STANDARDS.md`, `docs/STATUS.md` |
+
+If the project later adds `docs/development/COMMANDS.md`, `TESTING.md`, `ARCHITECTURE.md`, or `SECURITY.md`, route to those single-responsibility files from here.
+```
+
+## docs/routes/SKILL_ROUTING.md
+
+Purpose: route Skill selection, creation, update, installation, and validation when the repository manages Codex Skills.
+
+Recommended sections:
+
+```markdown
+# Skill Routing
+
+Use this route for selecting, creating, updating, installing, or validating Skills.
+
+| Task | Read |
+|---|---|
+| Choose which Skill to use | `docs/SKILL_CATALOG.md` and `docs/SKILL_ROUTING.md` if present |
+| Add or update a Skill | target `skills/<name>/SKILL.md`, relevant bundled resources, and Skill catalog/routing docs if present |
+| Update handoff workflow Skill | `skills/multi-agent-project-handoff/SKILL.md`, `skills/multi-agent-project-handoff/references/document-set.md`, `skills/multi-agent-project-handoff/scripts/init_handoff_docs.py` |
+| Install or validate Skills | `README.md`, `scripts/install.py`, `scripts/validate.py` |
+
+Run the repository validation command after Skill changes.
+```
+
+## docs/routes/AI_AGENT_ROUTING.md
+
+Purpose: route AI-agent collaboration rules, handoff structure, review workflow, and documentation architecture.
+
+Recommended sections:
+
+```markdown
+# AI Agent Routing
+
+Use this route for AI-agent collaboration rules, handoff structure, document routing, and review workflow.
+
+| Task | Read |
+|---|---|
+| Adjust root agent instructions | `AGENTS.md`, `docs/AGENT_INDEX.md`, this route |
+| Change document routing | `docs/AGENT_INDEX.md`, `docs/routes/*.md`, `docs/CODE_STANDARDS.md` |
+| Slim bulky agent docs | `AGENTS.md`, `docs/AGENT_INDEX.md`, `docs/ai-agent/README.md` |
+| Initialize another repo for multi-agent work | Use `$multi-agent-project-handoff` |
+| Record a collaboration decision | `docs/DECISIONS.md` |
+
+Keep root `AGENTS.md` thin. Add detail to route files, `docs/ai-agent/`, or Skills.
+```
+
+## docs/routes/CHANGE_ROUTING.md
+
+Purpose: route version, requirement, and feature-difference documentation.
+
+Recommended sections:
+
+```markdown
+# Change Routing
+
+Use this route for version, requirement, and feature-difference documentation.
+
+| Task | Read |
+|---|---|
+| Compare a new version or requirement with existing behavior | `docs/change-diffs/README.md` |
+| Record a feature-level difference | `docs/change-diffs/README.md`, relevant project docs |
+| Update project roadmap after a change | `docs/ROADMAP.md` |
+| Record a product or architecture decision | `docs/DECISIONS.md` |
+| Analyze a complex frontend variant | Use `$legacy-frontend-flow-analysis` if available |
+
+Keep stable workflows in `docs/ai-agent/` or Skills. Keep one-off version differences in `docs/change-diffs/`.
 ```
 
 ## docs/ROADMAP.md
@@ -246,6 +355,10 @@ Recommended sections:
 
 ## 分层和职责
 - <Architecture boundaries.>
+- 根目录 `AGENTS.md` 只放硬规则和 L0 入口。
+- `docs/AGENT_INDEX.md` 只做 L1 任务类型路由。
+- `docs/routes/*.md` 做 L2 任务子类型路由，指向具体单一职责文档。
+- 任务细节、流程说明和分析模板放入单一职责文档或 Skill，不塞回根入口。
 
 ## 复用原则
 - 同一能力只保留一个权威实现。
@@ -276,7 +389,7 @@ Recommended sections:
 
 ## 目录职责
 - 本目录存放长期稳定、可复用的详细流程。
-- 根目录 `AGENTS.md` 只保留高优先级入口和索引。
+- 根目录 `AGENTS.md` 只保留高优先级入口；`docs/AGENT_INDEX.md` 和 `docs/routes/*.md` 负责路由。
 
 ## 推荐文档类型
 - 复杂业务流程导航。

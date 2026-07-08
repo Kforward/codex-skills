@@ -12,6 +12,13 @@ from pathlib import Path
 
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(?P<body>.*?)\r?\n---\r?\n", re.DOTALL)
 CATALOG_HEADING_RE = re.compile(r"^##\s+`?(?P<name>[a-z0-9-]{1,64})`?\s*$", re.MULTILINE)
+ROUTE_FILES = [
+    "PROJECT_ROUTING.md",
+    "DEVELOPMENT_ROUTING.md",
+    "SKILL_ROUTING.md",
+    "AI_AGENT_ROUTING.md",
+    "CHANGE_ROUTING.md",
+]
 
 
 def configure_stdout() -> None:
@@ -147,6 +154,7 @@ def validate_agent_docs(project_root: Path) -> list[str]:
     errors: list[str] = []
     agents = project_root / "AGENTS.md"
     index = project_root / "docs" / "AGENT_INDEX.md"
+    routes_dir = project_root / "docs" / "routes"
 
     if not agents.is_file():
         errors.append("AGENTS.md: missing root agent instructions")
@@ -164,9 +172,25 @@ def validate_agent_docs(project_root: Path) -> list[str]:
         errors.append("docs/AGENT_INDEX.md: missing task routing index")
     else:
         text = index.read_text(encoding="utf-8")
-        for required in ["Task Routing", "Keep Context Small", "nested `AGENTS.md`"]:
+        for required in ["Route By Task Type", "Keep Context Small", "AGENTS.md"]:
             if required not in text:
                 errors.append(f"docs/AGENT_INDEX.md: missing {required}")
+        for route_file in ROUTE_FILES:
+            route_path = f"docs/routes/{route_file}"
+            if route_path not in text:
+                errors.append(f"docs/AGENT_INDEX.md: missing route {route_path}")
+
+    if not routes_dir.is_dir():
+        errors.append("docs/routes: missing route directory")
+    else:
+        for route_file in ROUTE_FILES:
+            route_path = routes_dir / route_file
+            if not route_path.is_file():
+                errors.append(f"docs/routes/{route_file}: missing route file")
+                continue
+            text = route_path.read_text(encoding="utf-8")
+            if "| Task | Read |" not in text:
+                errors.append(f"docs/routes/{route_file}: missing task routing table")
 
     return errors
 
@@ -211,6 +235,11 @@ def run_handoff_smoke(project_root: Path) -> list[str]:
             "docs/STATUS.md",
             "docs/HANDOFF.md",
             "docs/AGENT_INDEX.md",
+            "docs/routes/PROJECT_ROUTING.md",
+            "docs/routes/DEVELOPMENT_ROUTING.md",
+            "docs/routes/SKILL_ROUTING.md",
+            "docs/routes/AI_AGENT_ROUTING.md",
+            "docs/routes/CHANGE_ROUTING.md",
             "docs/ROADMAP.md",
             "docs/DECISIONS.md",
             "docs/CODE_STANDARDS.md",

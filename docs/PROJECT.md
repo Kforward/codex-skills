@@ -11,7 +11,7 @@
 - 提供本地安装脚本。
 - 提供无外部依赖的基础校验脚本。
 - 提供 Skill catalog 和路由维护规则，避免 Skill 增长后难以选择。
-- 提供薄 `AGENTS.md` 和 `docs/AGENT_INDEX.md` 按需读取结构，避免协作文档浪费上下文。
+- 提供薄 `AGENTS.md`、`docs/AGENT_INDEX.md` 和 `docs/routes/*.md` 分级按需读取结构，避免协作文档浪费上下文。
 - 用项目文档记录 Skill 项目的状态、路线、决策和交接。
 
 ## 非目标

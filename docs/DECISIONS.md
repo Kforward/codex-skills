@@ -57,3 +57,10 @@
 - 背景：单个 AGENTS 文档持续膨胀会增加 Codex 上下文成本，也会让 Agent 默认读取过多无关规则。
 - 取舍：保留统一 `docs/` 文档中心和官方 `AGENTS.md` 机制，不引入自定义 `AGENTS.override.md` 文件名。
 - 影响：`multi-agent-project-handoff` 初始化的新项目默认生成薄入口结构；校验脚本会检查根 AGENTS 长度和 AGENT_INDEX 路由。
+
+### 2026-07-08 - 引入 L0/L1/L2 分级文档路由
+
+- 决策：将项目文档路由拆成 L0 根 `AGENTS.md`、L1 `docs/AGENT_INDEX.md` 和 L2 `docs/routes/*.md`。
+- 背景：随着单一职责文档增加，根入口或单层索引都会逐渐变成大目录，仍会浪费 Agent 上下文。
+- 取舍：先保留统一 `docs/` 中心和现有文档位置，只新增轻量 route files；暂不把所有文档迁移到更深目录。
+- 影响：新增任务子类型时优先更新对应 L2 route；只有出现新的任务大类时才更新 L1 索引。

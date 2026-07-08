@@ -10,9 +10,9 @@
 
 ## `multi-agent-project-handoff`
 
-- 适用场景：初始化或更新仓库级多用户、多端、多 AI Agent 协作文档；整理 `AGENTS.md`、`README.md`、`docs/` 交接体系；规范阶段结束文档同步、功能点提交和跨工具入口。
+- 适用场景：初始化或更新仓库级多用户、多端、多 AI Agent 协作文档；整理 `AGENTS.md`、`README.md`、`docs/` 交接体系和 L0/L1/L2 分级文档路由；规范阶段结束文档同步、功能点提交和跨工具入口。
 - 不适用场景：分析某个具体业务流程的代码调用链；修复普通 bug；创建一次性项目说明文档。
-- 触发关键词：新项目、协作规范、AGENTS.md、handoff、共享记忆、多端、多 Agent、文档分层、阶段提交、恢复流程。
+- 触发关键词：新项目、协作规范、AGENTS.md、handoff、共享记忆、多端、多 Agent、文档分层、分级路由、按需读取、阶段提交、恢复流程。
 - 示例 prompt：`使用 $multi-agent-project-handoff 初始化这个仓库的多 Agent 协作文档。`
 - 主要资源：`references/document-set.md`、`scripts/init_handoff_docs.py`。
 - 边界提示：项目事实写入目标仓库文档，不写回 Skill 本体。

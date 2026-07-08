@@ -24,7 +24,8 @@ ROOT_FILES = {
 
 ## Read Routing
 - Resume or new session: read `docs/STATUS.md` and `docs/HANDOFF.md`.
-- Need task-specific docs, standards, roadmap, or decisions: use `docs/AGENT_INDEX.md`.
+- Need task-specific docs, standards, roadmap, or decisions: start with `docs/AGENT_INDEX.md` and choose one route file under `docs/routes/`.
+- Read the selected route file, then only the concrete docs it names.
 - Working under a subtree with its own `AGENTS.md`: read that nested file for local incremental rules.
 - If the current executor is Codex and `.codex/CODEX_PREFERENCES.md` exists, read it when Codex-specific preferences matter.
 - Do not read every file in `docs/` by default.
@@ -48,13 +49,14 @@ TBD: 补充安装、配置、运行、测试和构建命令。
 TBD: 列出本项目最常用的开发命令。
 
 ## 协作入口
-AI Agent 接手本项目时，先阅读 `AGENTS.md`，再阅读 `docs/HANDOFF.md` 和 `docs/STATUS.md`。
+AI Agent 接手本项目时，先阅读 `AGENTS.md`，再阅读 `docs/HANDOFF.md`、`docs/STATUS.md` 和 `docs/AGENT_INDEX.md`。
 
 ## 文档地图
 - `docs/PROJECT.md`
 - `docs/STATUS.md`
 - `docs/HANDOFF.md`
 - `docs/AGENT_INDEX.md`
+- `docs/routes/*.md`
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
@@ -126,7 +128,7 @@ TBD: 补充安装、测试、构建命令。
 - `docs/STATUS.md`
 - `docs/HANDOFF.md`
 - `docs/AGENT_INDEX.md`
-- 按 `docs/AGENT_INDEX.md` 选择任务相关文档，不要默认全读。
+- 按 `docs/AGENT_INDEX.md` 选择一个 `docs/routes/` 路由文件，再读取任务相关文档；不要默认全读。
 
 ## 下一步建议
 - TBD
@@ -134,26 +136,24 @@ TBD: 补充安装、测试、构建命令。
 ## 已知问题
 - 暂无
 """,
-    "AGENT_INDEX.md": """# Agent Document Index
+    "AGENT_INDEX.md": """# Agent Route Index
 
-## Read First
-- Resume or new session: `docs/STATUS.md`, then `docs/HANDOFF.md`.
-- Before changing code or docs: check `git status`, then read the relevant rows below.
-- Nested `AGENTS.md` files should be rare, subtree-specific, and incremental.
+Use this first-level route only to choose the next route file. Do not treat it as a full document map.
 
-## Task Routing
-| Task | Read |
+## Route By Task Type
+
+| Task Type | Next Route |
 |---|---|
-| Understand current state | `docs/STATUS.md`, `docs/HANDOFF.md` |
-| Change code | `docs/CODE_STANDARDS.md` plus task-specific docs |
-| Change project scope | `docs/PROJECT.md`, `docs/DECISIONS.md`, `docs/ROADMAP.md` |
-| Analyze complex flow | relevant `docs/ai-agent/` doc or a matching Skill |
-| Compare version or requirement | relevant `docs/change-diffs/` doc |
+| Resume project, inspect status, roadmap, or decisions | `docs/routes/PROJECT_ROUTING.md` |
+| Change code, scripts, validation, architecture, or security rules | `docs/routes/DEVELOPMENT_ROUTING.md` |
+| Create, update, choose, install, or validate Skills | `docs/routes/SKILL_ROUTING.md` |
+| Adjust AI-agent collaboration, handoff, review, or documentation routing | `docs/routes/AI_AGENT_ROUTING.md` |
+| Compare versions, requirements, or feature differences | `docs/routes/CHANGE_ROUTING.md` |
 
 ## Keep Context Small
+- Read exactly one route file first, then only the concrete docs it names.
 - Prefer targeted reads over "read all docs".
-- Move long stable workflows to `docs/ai-agent/` or a Skill.
-- Move version or requirement differences to `docs/change-diffs/`.
+- If a nested directory contains its own `AGENTS.md`, read it only when working in that subtree; nested files should contain incremental local rules, not copied root rules.
 """,
     "ROADMAP.md": """# 路线图
 
@@ -181,15 +181,19 @@ TBD: 补充安装、测试、构建命令。
 ## 决策
 
 ### {{DATE}} - 初始化协作交接文档
-- 决策：使用仓库文档作为多端、多 AI Agent 协作的共享记忆。
+- 决策：使用仓库文档和 L0/L1/L2 分级路由作为多端、多 AI Agent 协作的共享记忆。
 - 背景：不同客户端和 Agent 不能天然共享完整聊天上下文。
-- 取舍：把长期上下文写入仓库，避免依赖单次会话记忆。
-- 影响：后续阶段结束时需要同步更新状态、交接、路线图和决策文档。
+- 取舍：把长期上下文写入仓库，用薄 `AGENTS.md`、`docs/AGENT_INDEX.md` 和 `docs/routes/*.md` 避免依赖单次会话记忆或默认全量读取。
+- 影响：后续阶段结束时需要同步更新状态、交接、路线图和决策文档；新增长期文档时应更新对应路由。
 """,
     "CODE_STANDARDS.md": """# 代码规范
 
 ## 分层和职责
 - TBD: 说明项目的模块边界和职责划分。
+- 根目录 `AGENTS.md` 只放硬规则和 L0 入口。
+- `docs/AGENT_INDEX.md` 只做 L1 任务类型路由。
+- `docs/routes/*.md` 做 L2 任务子类型路由，指向具体单一职责文档。
+- 任务细节、流程说明和分析模板放入单一职责文档或 Skill，不塞回根入口。
 
 ## 业务更新原则
 - 修改前先判断是否影响已有逻辑。
@@ -232,7 +236,7 @@ TBD: 补充安装、测试、构建命令。
 
 ## 目录职责
 - 本目录存放长期稳定、可复用的详细流程。
-- 根目录 `AGENTS.md` 只保留高优先级入口和索引。
+- 根目录 `AGENTS.md` 只保留高优先级入口；`docs/AGENT_INDEX.md` 和 `docs/routes/*.md` 负责路由。
 
 ## 推荐文档类型
 - 复杂业务流程导航。
@@ -274,6 +278,78 @@ TBD
 
 ### 验证清单
 TBD
+""",
+}
+
+
+ROUTE_FILES = {
+    "PROJECT_ROUTING.md": """# Project Routing
+
+Use this route for project understanding, resume, status, roadmap, and decisions.
+
+| Task | Read |
+|---|---|
+| Resume work or start a new session | `docs/STATUS.md`, `docs/HANDOFF.md` |
+| Understand project purpose and boundaries | `docs/PROJECT.md` |
+| Check current priorities | `docs/ROADMAP.md` |
+| Understand why a choice was made | `docs/DECISIONS.md` |
+| Update project state after work | `docs/STATUS.md`, `docs/HANDOFF.md` |
+
+Return to `docs/AGENT_INDEX.md` only if the task type changes.
+""",
+    "DEVELOPMENT_ROUTING.md": """# Development Routing
+
+Use this route for code, scripts, validation, architecture, security, and implementation conventions.
+
+| Task | Read |
+|---|---|
+| Change code | `docs/CODE_STANDARDS.md`, task-specific source files, and nearby docs |
+| Change validation, build, install, or maintenance scripts | `README.md`, `docs/CODE_STANDARDS.md`, related files under `scripts/` |
+| Change architecture or security-sensitive behavior | `docs/PROJECT.md`, `docs/DECISIONS.md`, `docs/CODE_STANDARDS.md` |
+| Prepare commit or release notes | `docs/CODE_STANDARDS.md`, `docs/STATUS.md` |
+
+If the project later adds `docs/development/COMMANDS.md`, `TESTING.md`, `ARCHITECTURE.md`, or `SECURITY.md`, route to those single-responsibility files from here.
+""",
+    "SKILL_ROUTING.md": """# Skill Routing
+
+Use this route for selecting, creating, updating, installing, or validating Skills.
+
+| Task | Read |
+|---|---|
+| Choose which Skill to use | `docs/SKILL_CATALOG.md` and `docs/SKILL_ROUTING.md` if present |
+| Add or update a Skill | target `skills/<name>/SKILL.md`, relevant bundled resources, and Skill catalog/routing docs if present |
+| Update handoff workflow Skill | `skills/multi-agent-project-handoff/SKILL.md`, `skills/multi-agent-project-handoff/references/document-set.md`, `skills/multi-agent-project-handoff/scripts/init_handoff_docs.py` |
+| Install or validate Skills | `README.md`, `scripts/install.py`, `scripts/validate.py` |
+
+Run the repository validation command after Skill changes.
+""",
+    "AI_AGENT_ROUTING.md": """# AI Agent Routing
+
+Use this route for AI-agent collaboration rules, handoff structure, document routing, and review workflow.
+
+| Task | Read |
+|---|---|
+| Adjust root agent instructions | `AGENTS.md`, `docs/AGENT_INDEX.md`, this route |
+| Change document routing | `docs/AGENT_INDEX.md`, `docs/routes/*.md`, `docs/CODE_STANDARDS.md` |
+| Slim bulky agent docs | `AGENTS.md`, `docs/AGENT_INDEX.md`, `docs/ai-agent/README.md` |
+| Initialize another repo for multi-agent work | Use `$multi-agent-project-handoff` |
+| Record a collaboration decision | `docs/DECISIONS.md` |
+
+Keep root `AGENTS.md` thin. Add detail to route files, `docs/ai-agent/`, or Skills.
+""",
+    "CHANGE_ROUTING.md": """# Change Routing
+
+Use this route for version, requirement, and feature-difference documentation.
+
+| Task | Read |
+|---|---|
+| Compare a new version or requirement with existing behavior | `docs/change-diffs/README.md` |
+| Record a feature-level difference | `docs/change-diffs/README.md`, relevant project docs |
+| Update project roadmap after a change | `docs/ROADMAP.md` |
+| Record a product or architecture decision | `docs/DECISIONS.md` |
+| Analyze a complex frontend variant | Use `$legacy-frontend-flow-analysis` if available |
+
+Keep stable workflows in `docs/ai-agent/` or Skills. Keep one-off version differences in `docs/change-diffs/`.
 """,
 }
 
@@ -355,6 +431,12 @@ def main() -> int:
     docs_dir = repo / "docs"
     for relative_path, template in DOC_FILES.items():
         target = docs_dir / relative_path
+        status = write_file(target, render(template, project_name), args.force)
+        results.append((status, str(target)))
+
+    routes_dir = docs_dir / "routes"
+    for relative_path, template in ROUTE_FILES.items():
+        target = routes_dir / relative_path
         status = write_file(target, render(template, project_name), args.force)
         results.append((status, str(target)))
 

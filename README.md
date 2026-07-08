@@ -4,11 +4,11 @@
 
 ## 当前 Skills
 
-- `multi-agent-project-handoff`：为新项目或现有仓库建立多端、多 AI Agent 协作交接文档、短入口 `AGENTS.md`、详细流程目录、变更异同分析目录和恢复流程。
+- `multi-agent-project-handoff`：为新项目或现有仓库建立多端、多 AI Agent 协作交接文档、短入口 `AGENTS.md`、L0/L1/L2 分级文档路由、详细流程目录、变更异同分析目录和恢复流程。
 - `legacy-frontend-flow-analysis`：从路由、页面、组件或行为入口追踪复杂旧前端业务流程，输出调用图、隐式依赖、风险和验证清单。
 
 完整索引见 `docs/SKILL_CATALOG.md`，Skill 选择和增长规则见 `docs/SKILL_ROUTING.md`。
-AI Agent 项目文档按需读取索引见 `docs/AGENT_INDEX.md`；根 `AGENTS.md` 只保留薄入口和硬规则。
+AI Agent 项目文档按需读取索引见 `docs/AGENT_INDEX.md` 和 `docs/routes/*.md`；根 `AGENTS.md` 只保留薄入口和硬规则。
 
 ## 安装
 
@@ -59,7 +59,8 @@ $CODEX_HOME\skills
 - `agents/openai.yaml` 的默认提示是否包含 `$skill-name`
 - `docs/SKILL_CATALOG.md` 是否覆盖所有 Skill，并提供示例 prompt
 - 根 `AGENTS.md` 是否保持短入口，并指向 `docs/AGENT_INDEX.md`
-- `docs/AGENT_INDEX.md` 是否包含任务路由和上下文瘦身规则
+- `docs/AGENT_INDEX.md` 是否包含一级任务路由和上下文瘦身规则
+- `docs/routes/*.md` 二级路由文件是否存在，并被 `docs/AGENT_INDEX.md` 引用
 - `multi-agent-project-handoff` 的初始化脚本是否能创建并跳过已有文档
 - 可选的 Codex 偏好和跨工具薄入口是否能生成
 
