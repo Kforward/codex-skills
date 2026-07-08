@@ -1,23 +1,21 @@
-# AI Agent 协作协议
+# AI Agent Instructions
 
-## 接手顺序
-- 先读 `README.md`。
-- 再读本文件。
-- 再读 `docs/PROJECT.md`、`docs/STATUS.md`、`docs/HANDOFF.md`、`docs/ROADMAP.md`、`docs/DECISIONS.md`、`docs/CODE_STANDARDS.md`。
-- 涉及新增、调整或选择 Skill 时，读取 `docs/SKILL_CATALOG.md` 和 `docs/SKILL_ROUTING.md`。
-- 查看 `git status` 和最近提交。
-- 修改 Skill 前先简短说明计划。
+## Always Follow
+- Check `git status` before editing.
+- Briefly state the plan before modifying code or Skills.
+- Do not delete files or revert user/agent changes unless explicitly requested.
+- Do not commit secrets, tokens, cookies, local config, or generated test output.
+- Keep Skill bodies lean; put project maintenance docs in this repository, not inside Skill folders.
 
-## 项目原则
-- Skill 本体必须保持精简，只放 AI 执行任务时真正需要的内容。
-- 安装、维护、分发说明放在项目根目录，不放进 Skill 文件夹。
-- 新增或修改 Skill 后必须运行 `scripts/validate.ps1` 或 `scripts/validate.py`。
-- 不提交密钥、Token、Cookie、个人本地配置或运行产物。
-- 不删除已有 Skill 或文档，除非用户明确要求。
+## Read Routing
+- Resume or new session: read `docs/STATUS.md` and `docs/HANDOFF.md`.
+- Need to choose or modify a Skill: read `docs/SKILL_CATALOG.md` and `docs/SKILL_ROUTING.md`.
+- Need task-specific docs, standards, roadmap, or decisions: use `docs/AGENT_INDEX.md`.
+- Working under a subtree with its own `AGENTS.md`: read that nested file for local incremental rules.
+- Do not read every file in `docs/` by default.
 
-## 阶段结束清单
-- 更新 `docs/STATUS.md`。
-- 更新 `docs/HANDOFF.md`。
-- 如有新决策，更新 `docs/DECISIONS.md`。
-- 如路线变化，更新 `docs/ROADMAP.md`。
-- 运行校验并记录结果。
+## End Checklist
+- Update `docs/STATUS.md` or `docs/HANDOFF.md` when project state changes.
+- Record new decisions in `docs/DECISIONS.md`.
+- Update `docs/ROADMAP.md` when priorities change.
+- Run `scripts/validate.cmd` before finishing Skill changes.

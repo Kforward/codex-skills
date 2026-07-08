@@ -29,6 +29,7 @@ Prefer this structure unless the repository already has an equivalent convention
 - `docs/PROJECT.md`: project purpose, scope, constraints, assumptions.
 - `docs/STATUS.md`: current state, completed work, next actions, known risks.
 - `docs/HANDOFF.md`: resume workflow, environment notes, validation commands, latest handoff.
+- `docs/AGENT_INDEX.md`: task-based routing so agents read only relevant docs.
 - `docs/ROADMAP.md`: now/next/later milestones and out-of-scope items.
 - `docs/DECISIONS.md`: architecture/product decisions and rationale.
 - `docs/CODE_STANDARDS.md`: coding, testing, security, naming, and commit conventions.
@@ -61,6 +62,7 @@ Optional additions:
    - Replace placeholders with facts from the actual repository.
    - Mark uncertain items as `TBD` or `Assumption`; do not invent project state.
    - Include the exact validation commands this repo expects.
+   - Keep `AGENTS.md` as a short router and put task-specific read rules in `docs/AGENT_INDEX.md`.
    - Include the cross-client startup prompt if another AI agent may join later.
    - Generalize from representative examples; do not name a long-lived guide after a one-off page, module, or feature unless the document is intentionally specific.
 5. Keep code and docs together:
@@ -81,18 +83,16 @@ When resuming a collaborative project, follow this order before making changes:
 1. `git status`
 2. `git pull --ff-only` if the user asked to sync and the worktree permits it.
 3. Read `AGENTS.md`.
-4. Read `README.md`.
-5. Read `docs/PROJECT.md`.
-6. Read `docs/STATUS.md`.
-7. Read `docs/HANDOFF.md`.
-8. Read `docs/ROADMAP.md`.
-9. Read `docs/DECISIONS.md`.
-10. Read `docs/CODE_STANDARDS.md`.
-11. Summarize the current state and next planned change before editing.
+4. Read `docs/STATUS.md` and `docs/HANDOFF.md`.
+5. Read `docs/AGENT_INDEX.md` to choose task-specific docs.
+6. Read only the additional docs needed for the task.
+7. Summarize the current state and next planned change before editing.
 
 ## Documentation Architecture
 
 Keep `AGENTS.md` short enough to be read reliably. It should contain mandatory rules, the read order, document links, and critical checklists. Move long workflows, domain walkthroughs, and analysis templates to `docs/ai-agent/` or another linked docs folder.
+
+Prefer one root `AGENTS.md` plus `docs/AGENT_INDEX.md` for routing. Use nested `AGENTS.md` files only when a subtree has truly different commands, tests, ownership, or constraints; nested files should contain incremental local rules, not copied root content.
 
 When a representative page, module, or feature is used for discovery, write the durable document as a general workflow. Keep the representative as an example or verification anchor, not the document identity.
 
@@ -115,9 +115,9 @@ When committing:
 When the user opens the repository in another client or with another AI agent, suggest this prompt:
 
 ```text
-请先阅读本仓库根目录的 AGENTS.md、README.md，以及 docs/PROJECT.md、docs/STATUS.md、docs/ROADMAP.md、docs/HANDOFF.md、docs/DECISIONS.md、docs/CODE_STANDARDS.md。
-严格按照 AGENTS.md 中的协作协议继续开发。
-在理解当前项目目标、已完成内容、待完成内容、代码规范和关键决策前，不要修改代码。
+请先阅读本仓库根目录的 AGENTS.md，然后阅读 docs/STATUS.md、docs/HANDOFF.md 和 docs/AGENT_INDEX.md。
+严格按照 AGENTS.md 中的协作协议继续开发，并按 docs/AGENT_INDEX.md 只读取当前任务需要的额外文档。
+在理解当前项目目标、已完成内容、待完成内容和任务相关规则前，不要修改代码。
 开始前请先总结你理解到的当前状态和下一步计划。
 ```
 

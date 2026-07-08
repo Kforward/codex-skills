@@ -4,44 +4,26 @@ Read this reference when creating or substantially refreshing the repository han
 
 ## Root AGENTS.md
 
-Purpose: tell any AI agent how to work in this repository. Keep this file short: mandatory rules, read order, document map, and critical checklists belong here; long workflows belong in linked docs.
+Purpose: tell any AI agent the non-negotiable repository rules and how to route to more context. Keep this file short; long workflows and task-specific instructions belong in linked docs or Skills.
 
 Recommended sections:
 
 ```markdown
 # AI Agent 协作协议
 
-## 接手顺序
-- 先读 `README.md`。
-- 再读 `AGENTS.md`。
-- 再读 `docs/PROJECT.md`、`docs/STATUS.md`、`docs/HANDOFF.md`、`docs/ROADMAP.md`、`docs/DECISIONS.md`、`docs/CODE_STANDARDS.md`。
-- 查看 `git status` 和最近提交。
-- 修改代码前先简短说明计划。
+## Always Follow
+- Check `git status` before editing.
+- Briefly state the plan before modifying code or project docs.
+- Do not delete files or revert user/agent changes unless explicitly requested.
+- Do not commit secrets, tokens, cookies, local config, generated output, or design/prototype caches.
+- Follow existing architecture, naming, and validation commands.
 
-## 工作规则
-- 优先遵循仓库已有架构、命名和测试方式。
-- 不要删除文件或回滚用户/其他 Agent 的改动，除非用户明确要求。
-- 代码变更要同步更新状态、交接或决策文档。
-- 本地分析产物、设计稿导出、原型缓存、临时截图和调试输出不提交；反复出现时加入忽略规则。
-- 阶段结束前运行项目约定的验证命令。
-- 如果当前执行者是 Codex，且存在 `.codex/CODEX_PREFERENCES.md`，还应阅读该文件。
-
-## 文档分层
-- `AGENTS.md` 只放高优先级规则、阅读顺序、文档索引和检查清单。
-- `docs/ai-agent/` 存放长期稳定的详细流程和分析方法。
-- `docs/change-diffs/` 存放版本、需求或功能级异同分析。
-- 使用代表页面或模块做分析时，沉淀文档应写成通用流程；代表样例只作为入口或验证锚点。
-
-## 恢复工作流程
-- 拉取最新代码后重新阅读状态、交接、路线图和决策文档。
-- 先总结当前状态和下一步，再继续开发。
-
-## Git 提交规范
-- 只有用户明确要求或项目协议要求阶段提交时才操作 git commit。
-- commit 必须按功能点、修复点或文档点拆分。
-- 一个 commit 只表达一个功能点；不要混入无关改动、格式化、重构和业务变更。
-- 暂存前确认没有带入本地分析目录、设计工具缓存、临时截图或调试文件；需要共享忽略规则时单独提交。
-- commit message 遵循 Conventional Commits：`<type>(<scope>): <subject>`。
+## Read Routing
+- Resume or new session: read `docs/STATUS.md` and `docs/HANDOFF.md`.
+- Need task-specific docs, standards, roadmap, or decisions: use `docs/AGENT_INDEX.md`.
+- Working under a subtree with its own `AGENTS.md`: read that nested file for local incremental rules.
+- If the current executor is Codex and `.codex/CODEX_PREFERENCES.md` exists, read it when Codex-specific preferences matter.
+- Do not read every file in `docs/` by default.
 
 ## 阶段结束清单
 - 更新 `docs/STATUS.md`。
@@ -76,6 +58,7 @@ AI Agent 接手时先阅读 `AGENTS.md`，再阅读 `docs/HANDOFF.md` 和 `docs/
 - `docs/PROJECT.md`
 - `docs/STATUS.md`
 - `docs/HANDOFF.md`
+- `docs/AGENT_INDEX.md`
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
@@ -164,13 +147,10 @@ git pull --ff-only
 ## 接手必读
 - `README.md`
 - `AGENTS.md`
-- `docs/PROJECT.md`
 - `docs/STATUS.md`
-- `docs/ROADMAP.md`
-- `docs/DECISIONS.md`
-- `docs/CODE_STANDARDS.md`
-- `docs/ai-agent/README.md`
-- `docs/change-diffs/README.md`
+- `docs/HANDOFF.md`
+- `docs/AGENT_INDEX.md`
+- 按 `docs/AGENT_INDEX.md` 选择任务相关文档，不要默认全读。
 
 ## 下一步建议
 - <Next task.>
@@ -178,6 +158,35 @@ git pull --ff-only
 ## 已知问题
 - <Known issue or "暂无".>
 ````
+
+## docs/AGENT_INDEX.md
+
+Purpose: route agents to only the documents needed for the current task.
+
+Recommended sections:
+
+```markdown
+# Agent Document Index
+
+## Read First
+- Resume or new session: `docs/STATUS.md`, then `docs/HANDOFF.md`.
+- Before changing code: check `git status`, then read the relevant rows below.
+- Nested `AGENTS.md` files should be rare, subtree-specific, and incremental.
+
+## Task Routing
+| Task | Read |
+|---|---|
+| Understand current state | `docs/STATUS.md`, `docs/HANDOFF.md` |
+| Change code | `docs/CODE_STANDARDS.md` plus task-specific docs |
+| Change project scope | `docs/PROJECT.md`, `docs/DECISIONS.md`, `docs/ROADMAP.md` |
+| Analyze complex flow | relevant `docs/ai-agent/` doc or a matching Skill |
+| Compare version or requirement | relevant `docs/change-diffs/` doc |
+
+## Keep Context Small
+- Prefer targeted reads over "read all docs".
+- Move long stable workflows to `docs/ai-agent/` or a Skill.
+- Move version or requirement differences to `docs/change-diffs/`.
+```
 
 ## docs/ROADMAP.md
 

@@ -50,3 +50,10 @@
 - 背景：Skill 数量增长后，仅靠记忆或人工判断容易选错 Skill；而 Codex 隐式触发主要依赖 `name` 和 `description`。
 - 取舍：先做轻量 catalog 与基础校验，不引入总控 Skill、外部索引服务或复杂关键词相似度算法。
 - 影响：新增或调整 Skill 时必须维护 catalog；后续可按 Skill 数量增长再增加关键词重叠检查和分组策略。
+
+### 2026-07-08 - 采用薄 AGENTS 和按需文档路由
+
+- 决策：根 `AGENTS.md` 只保留硬规则和读取路由，新增 `docs/AGENT_INDEX.md` 作为任务到文档的索引；嵌套 `AGENTS.md` 只用于子目录真实增量规则。
+- 背景：单个 AGENTS 文档持续膨胀会增加 Codex 上下文成本，也会让 Agent 默认读取过多无关规则。
+- 取舍：保留统一 `docs/` 文档中心和官方 `AGENTS.md` 机制，不引入自定义 `AGENTS.override.md` 文件名。
+- 影响：`multi-agent-project-handoff` 初始化的新项目默认生成薄入口结构；校验脚本会检查根 AGENTS 长度和 AGENT_INDEX 路由。

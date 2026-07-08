@@ -143,6 +143,34 @@ def validate_skill_catalog(project_root: Path, skills: dict[str, str]) -> list[s
     return errors
 
 
+def validate_agent_docs(project_root: Path) -> list[str]:
+    errors: list[str] = []
+    agents = project_root / "AGENTS.md"
+    index = project_root / "docs" / "AGENT_INDEX.md"
+
+    if not agents.is_file():
+        errors.append("AGENTS.md: missing root agent instructions")
+    else:
+        text = agents.read_text(encoding="utf-8")
+        non_empty_lines = [line for line in text.splitlines() if line.strip()]
+        if len(non_empty_lines) > 80:
+            errors.append("AGENTS.md: root instructions should stay under 80 non-empty lines")
+        if "docs/AGENT_INDEX.md" not in text:
+            errors.append("AGENTS.md: missing docs/AGENT_INDEX.md routing")
+        if "Do not read every file in `docs/` by default" not in text:
+            errors.append("AGENTS.md: missing targeted-read guardrail")
+
+    if not index.is_file():
+        errors.append("docs/AGENT_INDEX.md: missing task routing index")
+    else:
+        text = index.read_text(encoding="utf-8")
+        for required in ["Task Routing", "Keep Context Small", "nested `AGENTS.md`"]:
+            if required not in text:
+                errors.append(f"docs/AGENT_INDEX.md: missing {required}")
+
+    return errors
+
+
 def run_handoff_smoke(project_root: Path) -> list[str]:
     errors: list[str] = []
     script = (
@@ -182,6 +210,7 @@ def run_handoff_smoke(project_root: Path) -> list[str]:
             "docs/PROJECT.md",
             "docs/STATUS.md",
             "docs/HANDOFF.md",
+            "docs/AGENT_INDEX.md",
             "docs/ROADMAP.md",
             "docs/DECISIONS.md",
             "docs/CODE_STANDARDS.md",
@@ -239,6 +268,7 @@ def main() -> int:
 
     skill_metadata = collect_skill_metadata(skill_dirs)
     errors.extend(validate_skill_catalog(project_root, skill_metadata))
+    errors.extend(validate_agent_docs(project_root))
     errors.extend(run_handoff_smoke(project_root))
 
     if errors:

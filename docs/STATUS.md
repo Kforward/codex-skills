@@ -3,7 +3,7 @@
 ## 最近更新
 
 - 日期：2026-07-06
-- 当前阶段：搭建 Skill 精准发现和路由维护框架
+- 当前阶段：优化 AGENTS 薄入口和按需读取路由
 
 ## 已完成
 
@@ -18,6 +18,10 @@
 - 新增 `docs/SKILL_CATALOG.md`，集中记录每个 Skill 的适用场景、不适用场景、触发关键词和示例 prompt。
 - 新增 `docs/SKILL_ROUTING.md`，记录 Skill 增长后的触发优先级、description 写法和 catalog 维护规则。
 - 增强 `scripts/validate.py`，校验 description 路由质量和 catalog 覆盖情况。
+- 将根 `AGENTS.md` 收敛为薄入口，只保留硬规则、读取路由和阶段结束清单。
+- 新增 `docs/AGENT_INDEX.md`，按任务路由项目文档，避免默认读取全部 `docs/`。
+- 更新 `multi-agent-project-handoff` 生成模板，新项目默认使用薄 `AGENTS.md` + `docs/AGENT_INDEX.md`。
+- 增强 `scripts/validate.py`，校验根 `AGENTS.md` 长度、`docs/AGENT_INDEX.md` 存在和上下文瘦身规则。
 
 ## 进行中
 
@@ -25,7 +29,7 @@
 
 ## 下一步
 
-- 继续根据真实项目使用反馈迭代两个 Skill 的内容、catalog 和校验规则。
+- 继续根据真实项目使用反馈迭代两个 Skill 的内容、catalog、AGENT_INDEX 和校验规则。
 - 后续可考虑为 `legacy-frontend-flow-analysis` 增加可选脚本，自动生成调用关系/依赖审计草稿。
 
 ## 风险和阻塞
@@ -34,7 +38,8 @@
 
 ## 最近验证
 
-- `.\scripts\validate.cmd`：通过（2026-07-06，含 Skill Catalog 校验）。
+- `.\scripts\validate.cmd`：通过（2026-07-08，含 Skill Catalog 和 AGENTS 瘦身校验）。
+- `.\scripts\install.cmd multi-agent-project-handoff -Force`：通过（2026-07-08）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Force`、`.\scripts\install.cmd legacy-frontend-flow-analysis -Force`：通过（2026-07-06）。
 - `.\scripts\install.cmd multi-agent-project-handoff -Target <temp>`：通过。
 - 复跑 `install.cmd`：通过，默认跳过已有 Skill。

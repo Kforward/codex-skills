@@ -3,7 +3,7 @@
 ## 当前上下文
 
 - 项目路径：`outputs/codex-skills`
-- 当前目标：维护可扩展的 Skill 项目，确保 Skill 增长后仍能准确发现和选择。
+- 当前目标：维护可扩展的 Skill 项目，并用薄 `AGENTS.md` + `docs/AGENT_INDEX.md` 降低上下文负担。
 - 当前 Skills：`multi-agent-project-handoff`、`legacy-frontend-flow-analysis`
 - 当前分支：`main`
 - 当前远程：`git@github.com:Kforward/codex-skills.git`
@@ -26,8 +26,11 @@ Get-ChildItem -Recurse
 
 - `README.md`
 - `AGENTS.md`
-- `docs/PROJECT.md`
 - `docs/STATUS.md`
+- `docs/HANDOFF.md`
+- `docs/AGENT_INDEX.md`
+- 按 `docs/AGENT_INDEX.md` 选择任务相关文档，不要默认全读。
+- `docs/PROJECT.md`
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/CODE_STANDARDS.md`
@@ -39,6 +42,7 @@ Get-ChildItem -Recurse
 ## 下一步建议
 
 - 后续继续根据真实项目使用反馈迭代两个 Skill，避免为了文案润色而频繁改动。
+- 新增项目文档时优先更新 `docs/AGENT_INDEX.md` 的路由，而不是扩大根 `AGENTS.md`。
 - 新增或调整 Skill 时先更新 `docs/SKILL_CATALOG.md`，并确认 `description` 仍能精准触发。
 - 如要新增旧前端静态扫描能力，可优先评估 `legacy-frontend-flow-analysis` 的可选脚本，而不是把脚本逻辑塞进 `SKILL.md`。
 - 如要支持更多平台，可以补充 Bash 安装脚本。
